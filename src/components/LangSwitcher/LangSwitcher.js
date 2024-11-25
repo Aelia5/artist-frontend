@@ -1,9 +1,13 @@
-function LangSwitcher({ setRus, setEng }) {
+import './LangSwitcher.css';
+
+function LangSwitcher({ setRus, setEng, lang }) {
   return (
-    <div>
-      <button onClick={setRus}>Ru</button>
-      <button onClick={setEng}>En</button>
-    </div>
+    <button
+      className={`lang-switcher ${
+        lang === 'Ru' ? 'lang-switcher_lang_en' : 'lang-switcher_lang_ru'
+      }`}
+      onClick={lang === 'Ru' ? setEng : setRus}
+    />
   );
 }
 

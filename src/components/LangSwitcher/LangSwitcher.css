@@ -1,0 +1,23 @@
+.lang-switcher {
+  width: 40px;
+  height: 30px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.lang-switcher:hover {
+  opacity: .8;
+}
+
+.lang-switcher_lang_ru {
+  background-image: url('../../images/flag-ru.svg');
+}
+
+.lang-switcher_lang_en {
+  background-image: url('../../images/flag-en.svg');
+}

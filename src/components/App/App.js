@@ -1,26 +1,29 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import LangSwitcher from '../LangSwitcher/LangSwitcher';
+import Header from '../Header/Header';
 
 import {
   TranslationContext,
   translations,
 } from '../../contexts/translationContext';
 
+import { data, admin, user } from '../../utils/constants';
+
 function App() {
-  const [lang, setLang] = React.useState('en');
+  const [lang, setLang] = React.useState('En');
   function setRus() {
-    setLang('ru');
+    setLang('Ru');
   }
   function setEng() {
-    setLang('en');
+    setLang('En');
   }
 
   return (
     <TranslationContext.Provider value={translations[lang]}>
-      <div className="App">
+      <div className="app">
         <Helmet htmlAttributes={{ lang: lang }}>
           <meta name="description" content={translations[lang].title} />
           <meta name="keywords" content={translations[lang].keyWords} />
@@ -28,10 +31,25 @@ function App() {
           <link rel="manifest" href={`./manifest-${lang}.json`} />
           <title>{translations[lang].title}</title>
         </Helmet>
-        <header className="App-header">
-          <LangSwitcher setRus={setRus} setEng={setEng} />
-          <p>{translations[lang].greeting}.</p>
-        </header>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Header
+                  setRus={setRus}
+                  setEng={setEng}
+                  data={data}
+                  lang={lang}
+                  user={admin}
+                />
+                <div></div>
+                {/* <Main />
+                <Footer /> */}
+              </>
+            }
+          />
+        </Routes>
       </div>
     </TranslationContext.Provider>
   );
