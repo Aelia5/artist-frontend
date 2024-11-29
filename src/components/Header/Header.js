@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import LangSwitcher from '../LangSwitcher/LangSwitcher';
+import Menu from '../Menu/Menu';
 import { TranslationContext } from '../../contexts/translationContext';
 import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 
@@ -15,13 +16,25 @@ function Header({ setRus, setEng, data, lang, user }) {
   const langRef = useRef();
   const translation = React.useContext(TranslationContext);
 
-  const [menuOpened, setMenuOpened] = React.useState(true);
+  const [menuOpened, setMenuOpened] = React.useState(false);
   function openMenu() {
     setMenuOpened(true);
   }
   function closeMenu() {
     setMenuOpened(false);
   }
+
+  const [width, setWidth] = React.useState(window.innerWidth);
+
+  React.useEffect(() => {
+    function handleResizeWindow() {
+      setTimeout(setWidth, 1000, window.innerWidth);
+    }
+    window.addEventListener('resize', handleResizeWindow);
+    return () => {
+      window.removeEventListener('resize', handleResizeWindow);
+    };
+  }, []);
 
   React.useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -49,34 +62,12 @@ function Header({ setRus, setEng, data, lang, user }) {
           navigate('/', { replace: true });
         }}
       />
-      <nav>
-        <ul className="header__sections">
-          {data.sections.map((section) => (
-            <li className="header__section" key={section._id}>
-              <NavLink
-                to={`/${section.nameEn}`}
-                className={({ isActive }) =>
-                  `header__link ${isActive ? 'header__link_active' : undefined}`
-                }
-              >
-                {section[`name${lang}`]}
-              </NavLink>
-            </li>
-          ))}
-          {user.admin && (
-            <li className="header__section">
-              <NavLink
-                to="/admin"
-                className={({ isActive }) =>
-                  `header__link ${isActive ? 'header__link_active' : undefined}`
-                }
-              >
-                Панель управления
-              </NavLink>
-            </li>
-          )}
-        </ul>
-      </nav>
+
+      {width <= 500 ? (
+        <div></div>
+      ) : (
+        <Menu data={data} lang={lang} user={user} />
+      )}
       <LangSwitcher
         setRus={setRus}
         setEng={setEng}
@@ -93,7 +84,13 @@ function Header({ setRus, setEng, data, lang, user }) {
       />
       {menuOpened && (
         <div className="header__overlay">
-          <div className="header__container" ref={menuRef}></div>
+          <div className="header__container" ref={menuRef}>
+            {width > 500 ? (
+              <div></div>
+            ) : (
+              <Menu data={data} lang={lang} user={user} />
+            )}
+          </div>
         </div>
       )}
     </header>

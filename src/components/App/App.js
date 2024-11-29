@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
@@ -22,36 +22,38 @@ function App() {
   }
 
   return (
-    <TranslationContext.Provider value={translations[lang]}>
-      <div className="app">
-        <Helmet htmlAttributes={{ lang: lang }}>
-          <meta name="description" content={translations[lang].title} />
-          <meta name="keywords" content={translations[lang].keyWords} />
-          <meta name="author" content={translations[lang].author} />
-          <link rel="manifest" href={`./manifest-${lang}.json`} />
-          <title>{translations[lang].title}</title>
-        </Helmet>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Header
-                  setRus={setRus}
-                  setEng={setEng}
-                  data={data}
-                  lang={lang}
-                  user={user}
-                />
-                <div></div>
-                {/* <Main />
+    <HelmetProvider>
+      <TranslationContext.Provider value={translations[lang]}>
+        <div className="app">
+          <Helmet htmlAttributes={{ lang: lang }}>
+            <meta name="description" content={translations[lang].title} />
+            <meta name="keywords" content={translations[lang].keyWords} />
+            <meta name="author" content={translations[lang].author} />
+            <link rel="manifest" href={`./manifest-${lang}.json`} />
+            <title>{translations[lang].title}</title>
+          </Helmet>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Header
+                    setRus={setRus}
+                    setEng={setEng}
+                    data={data}
+                    lang={lang}
+                    user={user}
+                  />
+                  <div></div>
+                  {/* <Main />
                 <Footer /> */}
-              </>
-            }
-          />
-        </Routes>
-      </div>
-    </TranslationContext.Provider>
+                </>
+              }
+            />
+          </Routes>
+        </div>
+      </TranslationContext.Provider>
+    </HelmetProvider>
   );
 }
 
