@@ -41,7 +41,7 @@ function App() {
                   setEng={setEng}
                   data={data}
                   lang={lang}
-                  user={admin}
+                  user={user}
                 />
                 <div></div>
                 {/* <Main />
