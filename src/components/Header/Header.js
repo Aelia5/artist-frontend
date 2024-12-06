@@ -6,7 +6,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 import LangSwitcher from '../LangSwitcher/LangSwitcher';
 import Menu from '../Menu/Menu';
-import { TranslationContext } from '../../contexts/translationContext';
 import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 
 function Header({ setRus, setEng, data, lang, user }) {
@@ -14,7 +13,6 @@ function Header({ setRus, setEng, data, lang, user }) {
   const menuRef = useRef();
   const closeRef = useRef();
   const langRef = useRef();
-  const translation = React.useContext(TranslationContext);
 
   const [menuOpened, setMenuOpened] = React.useState(false);
   function openMenu() {

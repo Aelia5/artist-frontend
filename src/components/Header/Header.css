@@ -1,20 +1,27 @@
 .header {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 60px 10px auto 10px 40px 10px 30px;
   grid-template-columns: 60px auto 40px 30px;
   row-gap: 10px;
+  -webkit-column-gap: 10px;
+  -moz-column-gap: 10px;
   column-gap: 10px;
   margin: 0;
   padding: 10px calc((100vw - 1140px) / 2);
   width: 100%;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   position: relative;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
 .header__logo {
   width: 60px;
   height: 60px;
-  background-image: url(../../images/logo.png);
+  background-image: url(../../images/icons/logo.png);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -28,49 +35,6 @@
   opacity: 0.8;
 }
 
-/* .header__sections {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  row-gap: 10px;
-  column-gap: 10px;
-  margin: 0;
-  padding: 0;
-}
-
-.header__section {
-  list-style-type: none;
-}
-
-.header__link {
-  color: #000;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  font-weight: 500;
-  font-size: 18px;
-  font-style: italic;
-  text-shadow: .5px .5px 1px #000;
-  background-color: transparent;
-  border: none;
-}
-
-.header__link:hover {
-  opacity: 0.8;
-}
-
-.header__link_active {
-  font-weight: 800;
-}
-
-.header__link_active:hover {
-  opacity: 1;
-} */
-
 .header__profile-button {
   height: 30px;
   width: 30px;
@@ -78,7 +42,7 @@
   margin: 0;
   padding: 0;
   border: none;
-  background-image: url('../../images/profile.svg');
+  background-image: url('../../images/icons/profile.svg');
   background-position: center;
   background-color: transparent;
   background-size: contain;
@@ -103,11 +67,11 @@
 }
 
 .header__button_type_menu {
-  background-image: url(../../images/burger.svg);
+  background-image: url(../../images/icons/burger.svg);
 }
 
 .header__button_type_close {
-  background-image: url(../../images/close-button.svg);
+  background-image: url(../../images/icons/close-button.svg);
 }
 
 .header__button:hover {
@@ -147,20 +111,14 @@
     padding: 15px 30px;
   }
 
-  /* .header__link {
-    font-size: 14px;
-  } */
 }
 
 @media screen and (max-width: 500px) {
   .header {
     padding: 18px 14px;
+    -ms-grid-columns: 60px auto 40px 30px 40px;
     grid-template-columns: 60px auto 40px 30px 40px;
   }
-
-  /* .header__sections {
-    display: none
-  } */
 
   .header__button {
     display: block;

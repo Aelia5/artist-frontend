@@ -15,9 +15,9 @@
 }
 
 .lang-switcher_lang_ru {
-  background-image: url('../../images/flag-ru.svg');
+  background-image: url('../../images/icons/flag-ru.svg');
 }
 
 .lang-switcher_lang_en {
-  background-image: url('../../images/flag-en.svg');
+  background-image: url('../../images/icons/flag-en.svg');
 }
