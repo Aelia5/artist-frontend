@@ -5,6 +5,7 @@ import './App.css';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 import {
   TranslationContext,
@@ -21,6 +22,18 @@ function App() {
   function setEng() {
     setLang('En');
   }
+
+  const [width, setWidth] = React.useState(window.innerWidth);
+
+  React.useEffect(() => {
+    function handleResizeWindow() {
+      setTimeout(setWidth, 1000, window.innerWidth);
+    }
+    window.addEventListener('resize', handleResizeWindow);
+    return () => {
+      window.removeEventListener('resize', handleResizeWindow);
+    };
+  }, []);
 
   return (
     <HelmetProvider>
@@ -41,13 +54,13 @@ function App() {
                   <Header
                     setRus={setRus}
                     setEng={setEng}
+                    width={width}
                     data={data}
                     lang={lang}
                     user={user}
                   />
-                  <Main />
-                  {/* <Main />
-                <Footer /> */}
+                  <Main width={width} />
+                  {/* <Footer width={width} /> */}
                 </>
               }
             />

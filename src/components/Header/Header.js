@@ -2,13 +2,12 @@ import './Header.css';
 
 import React from 'react';
 import { useRef } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import LangSwitcher from '../LangSwitcher/LangSwitcher';
 import Menu from '../Menu/Menu';
-import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 
-function Header({ setRus, setEng, data, lang, user }) {
+function Header({ setRus, setEng, width, data, lang, user }) {
   const navigate = useNavigate();
   const menuRef = useRef();
   const closeRef = useRef();
@@ -21,18 +20,6 @@ function Header({ setRus, setEng, data, lang, user }) {
   function closeMenu() {
     setMenuOpened(false);
   }
-
-  const [width, setWidth] = React.useState(window.innerWidth);
-
-  React.useEffect(() => {
-    function handleResizeWindow() {
-      setTimeout(setWidth, 1000, window.innerWidth);
-    }
-    window.addEventListener('resize', handleResizeWindow);
-    return () => {
-      window.removeEventListener('resize', handleResizeWindow);
-    };
-  }, []);
 
   React.useEffect(() => {
     const checkIfClickedOutside = (e) => {

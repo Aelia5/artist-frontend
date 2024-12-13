@@ -1,0 +1,11 @@
+.contacts-button_type_whatsapp {
+  background-image: url(../../images/icons/whatsapp.svg);
+}
+
+.contacts-button_type_tg {
+  background-image: url(../../images/icons/telegram.svg);
+}
+
+.contacts-button_type_mail {
+  background-image: url(../../images/icons/mail.svg);
+}

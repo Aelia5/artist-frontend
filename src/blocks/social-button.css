@@ -1,0 +1,19 @@
+.social-button {
+  display: inline;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 0 5px;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  transform: translateY(5px);
+}
+
+.social-button:hover {
+  opacity: .8;
+
+}
