@@ -57,10 +57,9 @@ function App() {
                     width={width}
                     data={data}
                     lang={lang}
-                    user={user}
+                    user={''}
                   />
                   <Main width={width} />
-                  {/* <Footer width={width} /> */}
                 </>
               }
             />
