@@ -1,0 +1,13 @@
+.api-error {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 14px;
+  color: #7f3c58;
+  text-align: center;
+  min-height: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 0 0 10px;
+}

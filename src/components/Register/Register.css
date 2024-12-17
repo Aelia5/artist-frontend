@@ -1,0 +1,19 @@
+.register {
+  width: 100%;
+  margin: 0;
+  padding: 20px calc((100vw - 1140px) / 2);
+  min-height: calc(100dvh - 170px);
+  background-color: #ffeedc;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register__container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  align-items: center;
+  justify-items: flex-start;
+}

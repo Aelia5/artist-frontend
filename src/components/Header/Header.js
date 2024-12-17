@@ -44,7 +44,7 @@ function Header({ setRus, setEng, width, data, lang, user }) {
       <button
         className="header__logo"
         onClick={() => {
-          navigate('/', { replace: true });
+          navigate('/');
         }}
       />
 
@@ -59,7 +59,12 @@ function Header({ setRus, setEng, width, data, lang, user }) {
         lang={lang}
         langRef={langRef}
       />
-      <button className="header__profile-button" />
+      <button
+        className="header__profile-button"
+        onClick={() => {
+          user ? navigate('/profile') : navigate('/signin');
+        }}
+      />
       <button
         className={`header__button ${
           menuOpened ? 'header__button_type_close' : 'header__button_type_menu'

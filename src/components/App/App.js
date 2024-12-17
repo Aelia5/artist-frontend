@@ -6,6 +6,8 @@ import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 
 import {
   TranslationContext,
@@ -60,6 +62,40 @@ function App() {
                     user={''}
                   />
                   <Main width={width} />
+                </>
+              }
+            />
+            <Route
+              path="/signin"
+              element={
+                <>
+                  <Header
+                    setRus={setRus}
+                    setEng={setEng}
+                    width={width}
+                    data={data}
+                    lang={lang}
+                    user={''}
+                  />
+                  <Login />
+                  <Footer width={width} />
+                </>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <>
+                  <Header
+                    setRus={setRus}
+                    setEng={setEng}
+                    width={width}
+                    data={data}
+                    lang={lang}
+                    user={''}
+                  />
+                  <Register />
+                  <Footer width={width} />
                 </>
               }
             />
