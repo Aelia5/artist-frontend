@@ -3,7 +3,7 @@ import imagePath from '../../images/main-image.jpg';
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TranslationContext } from '../../contexts/translationContext';
+import { TranslationContext } from '../../contexts/TranslationContext';
 import ContactsButtons from '../ContactsButtons/ContactsButtons';
 import PagesButtons from '../PagesButtons/PagesButtons';
 

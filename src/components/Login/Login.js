@@ -1,9 +1,15 @@
 import './Login.css';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useFormWithValidation } from '../Validation/Validation';
+import { TranslationContext } from '../../contexts/TranslationContext';
 
 function Login() {
   // { handleLoginSubmit, apiError, changeApiError, blocked }
+
+  const navigate = useNavigate();
+
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
@@ -18,12 +24,14 @@ function Login() {
   //   changeApiError('');
   // }, [changeApiError, values]);
 
+  const translation = React.useContext(TranslationContext);
+
   const apiError = 'Тестовая ошибка';
 
   return (
     <main className="login">
       <section className="login__container">
-        <h1 className="form-title">Рады видеть!</h1>
+        <h1 className="form-title">{translation.loginTitle}!</h1>
         <form className="form" onSubmit={handleSubmit} noValidate>
           <label htmlFor="email" className="form__label">
             E-mail
@@ -31,11 +39,10 @@ function Login() {
           <input
             className="form__input"
             type="email"
-            placeholder="Введите вашу почту"
+            placeholder={translation.emailPlaceholder}
             id="email"
             name="email"
             pattern="[A-Za-z0-9\._%+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,4}$"
-            title="Введите корректный email"
             onChange={handleChange}
             value={values.email || ''}
             required
@@ -43,12 +50,12 @@ function Login() {
           ></input>
           <p className="form__input-error">{errors.email}</p>
           <label htmlFor="password" className="form__label">
-            Пароль
+            {translation.passwordTitle}
           </label>
           <input
             className="form__input form__input_invalid"
             type="password"
-            placeholder="Введите ваш пароль"
+            placeholder={translation.passwordPlaceholder}
             id="password"
             name="password"
             minLength="7"
@@ -60,10 +67,24 @@ function Login() {
           <p className="form__input-error">{errors.password}</p>
           <p className="api-error login__api-error">{apiError}</p>
           <button
-            className="login__button button"
-            // disabled={!isValid || apiError || blocked}
+            className="button login__button "
+            disabled={
+              !isValid
+              //   || apiError || blocked
+            }
+            type="submit"
           >
-            Войти
+            {translation.login}
+          </button>
+          <button
+            className="button login__button"
+            onClick={() => {
+              navigate('/signup');
+            }}
+            type="button"
+            disabled={isValid}
+          >
+            {translation.register}
           </button>
         </form>
       </section>

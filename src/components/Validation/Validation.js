@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { TranslationContext } from '../../contexts/translationContext';
+import { TranslationContext } from '../../contexts/TranslationContext';
 
 export function useFormWithValidation() {
   const translation = React.useContext(TranslationContext);
@@ -16,6 +16,8 @@ export function useFormWithValidation() {
     let error;
     if (name === 'confirm' && value !== values.password) {
       error = translation.confirmError;
+    } else if (name === 'newPassword' && value === values.oldPassword) {
+      error = translation.passwordsIdentical;
     } else if (
       target.validationMessage === 'Введите данные в указанном формате.'
     ) {

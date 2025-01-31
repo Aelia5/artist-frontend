@@ -1,6 +1,6 @@
 import './Footer.css';
 import React from 'react';
-import { TranslationContext } from '../../contexts/translationContext';
+import { TranslationContext } from '../../contexts/TranslationContext';
 
 import PagesButtons from '../PagesButtons/PagesButtons';
 import ContactsButtons from '../ContactsButtons/ContactsButtons';

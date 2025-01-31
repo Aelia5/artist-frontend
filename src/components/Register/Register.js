@@ -2,7 +2,7 @@ import './Register.css';
 import React from 'react';
 import { useFormWithValidation } from '../Validation/Validation';
 
-import { TranslationContext } from '../../contexts/translationContext';
+import { TranslationContext } from '../../contexts/TranslationContext';
 
 function Register(
   {

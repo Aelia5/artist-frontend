@@ -11,6 +11,7 @@
   line-height: 12px;
   color: #000;
   font-style: italic;
+  line-height: 22px;
 }
 
 .form__input {
@@ -48,6 +49,33 @@
 
 .form_hidden {
   display: none;
+}
+
+.form__password-button {
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  height: 20px;
+  background-color: #fff;
+  border: .5px solid #000;
+  border-radius: 5px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+
+}
+
+.form__show-password-button:hover {
+  opacity: .8;
+}
+
+.form__password-button_show {
+  background-image: url('../images/icons/show.svg');
+}
+
+.form__password-button_hide {
+  background-image: url('../images/icons/hide.svg');
 }
 
 @media screen and (max-width: 426px) {

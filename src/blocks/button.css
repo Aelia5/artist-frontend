@@ -27,6 +27,10 @@
   display: none;
 }
 
+.button:first-of-type {
+  margin-bottom: 10px;
+}
+
 
 @media screen and (max-width: 426px) {
   .button {
