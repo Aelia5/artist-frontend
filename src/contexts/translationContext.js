@@ -43,6 +43,9 @@ export const translations = {
     passwordsIdentical: 'The new password is identical to the current one.',
     showPassword: 'Show password',
     hidePassword: 'Hide password',
+    currency: 'Eur',
+    empty: 'There is nothing here yet',
+    owner: 'Owner',
   },
   Ru: {
     title: 'Портфолио Сабины Тари',
@@ -82,5 +85,8 @@ export const translations = {
     passwordsIdentical: 'Новый пароль совпадает с действующим',
     showPassword: 'Показать пароль',
     hidePassword: 'Скрыть пароль',
+    currency: 'руб',
+    empty: 'Здесь пока ничего нет',
+    owner: 'Правообладатель',
   },
 };

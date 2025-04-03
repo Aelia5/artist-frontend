@@ -9,6 +9,7 @@ import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
+import Section from '../Section/Section';
 
 import {
   TranslationContext,
@@ -42,8 +43,6 @@ function App() {
 
   const currentUser = user;
 
-  console.log(currentUser);
-
   return (
     <HelmetProvider>
       <TranslationContext.Provider value={translations[lang]}>
@@ -67,7 +66,7 @@ function App() {
                       width={width}
                       data={data}
                       lang={lang}
-                      user={user}
+                      user={currentUser}
                     />
                     <Main width={width} />
                   </>
@@ -151,6 +150,38 @@ function App() {
                   )
                 }
               />
+              {data.sections.map((section) => (
+                <Route
+                  path={`/${section.nameEn}`}
+                  key={section._id}
+                  element={
+                    currentUser ? (
+                      <>
+                        <Header
+                          user={currentUser}
+                          data={data}
+                          setRus={setRus}
+                          setEng={setEng}
+                          width={width}
+                          lang={lang}
+                          //  signOut={signOut}
+                        />
+                        <Section
+                          section={section}
+                          lang={lang}
+                          data={data}
+                          user={currentUser}
+                        />
+                        <Footer />
+                      </>
+                    ) : (
+                      <>
+                        <Navigate to="/signin" replace />
+                      </>
+                    )
+                  }
+                />
+              ))}
             </Routes>
           </div>
         </CurrentUserContext.Provider>
