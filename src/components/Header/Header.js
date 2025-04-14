@@ -1,4 +1,5 @@
 import './Header.css';
+import { TranslationContext } from '../../contexts/TranslationContext';
 
 import React from 'react';
 import { useRef } from 'react';
@@ -12,6 +13,8 @@ function Header({ setRus, setEng, width, data, lang, user }) {
   const menuRef = useRef();
   const closeRef = useRef();
   const langRef = useRef();
+
+  const translation = React.useContext(TranslationContext);
 
   const [menuOpened, setMenuOpened] = React.useState(false);
   function openMenu() {
@@ -46,6 +49,7 @@ function Header({ setRus, setEng, width, data, lang, user }) {
         onClick={() => {
           navigate('/');
         }}
+        title={translation.mainPage}
       />
 
       {width <= 500 ? (
@@ -64,6 +68,7 @@ function Header({ setRus, setEng, width, data, lang, user }) {
         onClick={() => {
           user ? navigate('/profile') : navigate('/signin');
         }}
+        title={user ? translation.profile : translation.login}
       />
       <button
         className={`header__button ${

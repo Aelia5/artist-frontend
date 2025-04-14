@@ -8,6 +8,7 @@ function LangSwitcher({ setRus, setEng, lang, langRef }) {
       }`}
       onClick={lang === 'Ru' ? setEng : setRus}
       ref={langRef}
+      title={lang === 'Ru' ? 'English' : 'Русский'}
     />
   );
 }

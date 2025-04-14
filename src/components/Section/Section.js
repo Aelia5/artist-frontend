@@ -3,7 +3,7 @@ import React from 'react';
 import { TranslationContext } from '../../contexts/TranslationContext';
 import Series from '../Series/Series';
 
-function Section({ section, lang, data, user }) {
+function Section({ section, lang, data, user, openPopupLetter }) {
   const translation = React.useContext(TranslationContext);
 
   const [pictures, setPictures] = React.useState([]);
@@ -42,7 +42,7 @@ function Section({ section, lang, data, user }) {
       {pictures.length === 0 && (
         <p className="section__series-link">{translation.empty}</p>
       )}
-      {pictures.length > 0 && !onlyNoSeries && (
+      {pictures.length > 0 && series.length > 1 && (
         <ul className="section__series-list">
           {series.map((series) => {
             return (
@@ -66,6 +66,7 @@ function Section({ section, lang, data, user }) {
               key={series._id}
               section={section}
               user={user}
+              openPopupLetter={openPopupLetter}
             />
           );
         })}

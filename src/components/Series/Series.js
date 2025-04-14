@@ -3,7 +3,15 @@ import React from 'react';
 
 import Picture from '../Picture/Picture';
 
-function Series({ series, lang, pictures, onlyNoSeries, section, user }) {
+function Series({
+  series,
+  lang,
+  pictures,
+  onlyNoSeries,
+  section,
+  user,
+  openPopupLetter,
+}) {
   const [picturesHere, setPicturesHere] = React.useState([]);
 
   React.useEffect(() => {
@@ -30,6 +38,7 @@ function Series({ series, lang, pictures, onlyNoSeries, section, user }) {
             section={section}
             key={picture._id}
             user={user}
+            openPopupLetter={openPopupLetter}
           />
         ))}
       </ul>

@@ -10,6 +10,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import Section from '../Section/Section';
+import Popup from '../Popup/Popup';
 
 import {
   TranslationContext,
@@ -29,6 +30,18 @@ function App() {
     setLang('En');
   }
 
+  const [popupOpen, setPopupOpen] = React.useState(false);
+  const [popupType, setPopupType] = React.useState('');
+
+  function openPopupLetter() {
+    setPopupOpen(true);
+    setPopupType('letter');
+  }
+
+  function closePopup() {
+    setPopupOpen(false);
+    setPopupType('');
+  }
   const [width, setWidth] = React.useState(window.innerWidth);
 
   React.useEffect(() => {
@@ -141,7 +154,7 @@ function App() {
                       // blocked={formsBlocked}
                       // editSuccess={editSuccess}
                       />
-                      <Footer />
+                      <Footer width={width} />
                     </>
                   ) : (
                     <>
@@ -171,8 +184,16 @@ function App() {
                           lang={lang}
                           data={data}
                           user={currentUser}
+                          openPopupLetter={openPopupLetter}
                         />
-                        <Footer />
+                        <Footer width={width} />
+                        {popupOpen && (
+                          <Popup
+                            user={currentUser}
+                            closePopup={closePopup}
+                            type={popupType}
+                          />
+                        )}
                       </>
                     ) : (
                       <>

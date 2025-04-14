@@ -2,7 +2,7 @@ import './Picture.css';
 import React from 'react';
 import { TranslationContext } from '../../contexts/TranslationContext';
 
-function Picture({ picture, lang, section, user }) {
+function Picture({ picture, lang, section, user, openPopupLetter }) {
   const translation = React.useContext(TranslationContext);
 
   const [liked, setLiked] = React.useState(
@@ -14,7 +14,6 @@ function Picture({ picture, lang, section, user }) {
     setLiked(!liked);
   }
 
-  console.log(user.admin);
   return (
     <li className={`picture ${picture.landscape ? 'picture_landscape' : ''}`}>
       <div
@@ -81,7 +80,11 @@ function Picture({ picture, lang, section, user }) {
                 }`}
                 onClick={toggleLike}
               ></button>
-              <button className="picture__button picture__button_type_mail"></button>
+              <button
+                className="picture__button picture__button_type_mail"
+                onClick={openPopupLetter}
+                title={translation.sendLetter}
+              ></button>
             </>
           )}
         </div>

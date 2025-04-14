@@ -37,6 +37,10 @@
   color: #7f3c58;
 }
 
+.form__textarea {
+  height: calc(100vh/3);
+}
+
 .form__input-error {
   margin: 0;
   padding: 0 0 10px;
