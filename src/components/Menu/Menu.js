@@ -2,7 +2,7 @@ import './Menu.css';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-function Menu({ data, lang, user }) {
+function Menu({ data, lang, user, closeMenu }) {
   return (
     <nav>
       <ul className="menu">
@@ -13,6 +13,7 @@ function Menu({ data, lang, user }) {
               className={({ isActive }) =>
                 `menu__link ${isActive ? 'menu__link_active' : undefined}`
               }
+              onClick={closeMenu}
             >
               {section[`name${lang}`]}
             </NavLink>
@@ -25,6 +26,7 @@ function Menu({ data, lang, user }) {
               className={({ isActive }) =>
                 `menu__link ${isActive ? 'menu__link_active' : undefined}`
               }
+              onClick={closeMenu}
             >
               Панель управления
             </NavLink>

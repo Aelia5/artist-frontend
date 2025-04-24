@@ -88,4 +88,8 @@
     gap: 4px
   }
 
+  .section__title {
+    font-size: 24px;
+  }
+
 }

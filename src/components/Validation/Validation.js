@@ -31,6 +31,28 @@ export function useFormWithValidation() {
     setIsValid(target.closest('form').checkValidity());
   };
 
+  const handleCheck = (event) => {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    const checkboxValues = values[name];
+    let newCheckboxValues;
+    if (
+      checkboxValues.some((v) => {
+        return v === value;
+      })
+    ) {
+      newCheckboxValues = checkboxValues.filter((v) => {
+        return v !== value;
+      });
+    } else {
+      checkboxValues.push(value);
+      newCheckboxValues = checkboxValues;
+    }
+    setValues({ ...values, [name]: newCheckboxValues });
+    setIsValid(target.closest('form').checkValidity());
+  };
+
   const resetForm = useCallback(
     (newValues = {}, newErrors = {}, newIsValid = false) => {
       setValues(newValues);
@@ -40,5 +62,5 @@ export function useFormWithValidation() {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, errors, isValid, resetForm };
+  return { values, handleChange, handleCheck, errors, isValid, resetForm };
 }

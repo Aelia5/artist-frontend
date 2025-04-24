@@ -8,7 +8,8 @@
 .form__label {
   font-weight: 600;
   font-size: 12px;
-  line-height: 12px;
+  margin: 0;
+  padding: 0;
   color: #000;
   font-style: italic;
   line-height: 22px;
@@ -39,6 +40,39 @@
 
 .form__textarea {
   height: calc(100vh/3);
+}
+
+.form__radio-label {
+  margin: 0 10px 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 15.73px;
+  color: #000;
+
+}
+
+.form__radio-label:first-of-type {
+  margin-left: 0;
+}
+
+.form__checkboxes {
+  margin: 0;
+  padding: 0;
+}
+
+.form__checkbox {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.form__checkbox-label {
+  margin: 0 0 0 10px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 15.73px;
+  color: #000;
+
 }
 
 .form__input-error {

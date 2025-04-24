@@ -83,7 +83,7 @@ function Header({ setRus, setEng, width, data, lang, user }) {
             {width > 500 ? (
               <div></div>
             ) : (
-              <Menu data={data} lang={lang} user={user} />
+              <Menu data={data} lang={lang} user={user} closeMenu={closeMenu} />
             )}
           </div>
         </div>

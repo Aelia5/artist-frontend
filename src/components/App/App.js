@@ -11,6 +11,7 @@ import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import Section from '../Section/Section';
 import Popup from '../Popup/Popup';
+import FormPicture from '../FormPicture/FormPicture';
 
 import {
   TranslationContext,
@@ -32,6 +33,7 @@ function App() {
 
   const [popupOpen, setPopupOpen] = React.useState(false);
   const [popupType, setPopupType] = React.useState('');
+  const [pictureToChange, setPictureToChange] = React.useState();
 
   function openPopupLetter() {
     setPopupOpen(true);
@@ -54,7 +56,7 @@ function App() {
     };
   }, []);
 
-  const currentUser = user;
+  const currentUser = admin;
 
   return (
     <HelmetProvider>
@@ -192,12 +194,43 @@ function App() {
                             user={currentUser}
                             closePopup={closePopup}
                             type={popupType}
+                            picture={pictureToChange}
                           />
                         )}
                       </>
                     ) : (
                       <>
                         <Navigate to="/signin" replace />
+                      </>
+                    )
+                  }
+                />
+              ))}
+              {data.pictures.map((picture) => (
+                <Route
+                  path={`/admin/edit/${picture._id}`}
+                  key={picture._id}
+                  element={
+                    currentUser.admin ? (
+                      <>
+                        <Header
+                          user={currentUser}
+                          data={data}
+                          setRus={setRus}
+                          setEng={setEng}
+                          width={width}
+                          lang={lang}
+                          //  signOut={signOut}
+                        />
+                        <FormPicture
+                          picture={picture}
+                          sections={data.sections}
+                          series={data.series}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <Navigate to="/" replace />
                       </>
                     )
                   }

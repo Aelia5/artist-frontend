@@ -20,7 +20,7 @@ module.exports.data = {
       __v: 0,
       sections: ['01', '04', '08'],
       series: ['002'],
-      landscape: true,
+      orientation: 'landscape',
     },
     {
       _id: '0002',
@@ -42,7 +42,7 @@ module.exports.data = {
       __v: 0,
       sections: ['01', '04', '08'],
       series: ['003'],
-      landscape: false,
+      orientation: 'portrait',
     },
     {
       _id: '0003',
@@ -64,7 +64,7 @@ module.exports.data = {
       __v: 0,
       sections: ['01', '04', '05'],
       series: ['003'],
-      landscape: true,
+      orientation: 'landscape',
     },
     {
       _id: '0004',
@@ -86,7 +86,7 @@ module.exports.data = {
       __v: 0,
       sections: ['02', '04', '07', '08'],
       series: ['004'],
-      landscape: false,
+      orientation: 'portrait',
     },
     {
       _id: '0005',
@@ -108,7 +108,7 @@ module.exports.data = {
       __v: 0,
       sections: ['06', '08'],
       series: ['008'],
-      landscape: false,
+      orientation: 'portrait',
     },
     {
       _id: '0006',
@@ -130,7 +130,7 @@ module.exports.data = {
       __v: 0,
       sections: ['02', '04', '07', '08'],
       series: ['004'],
-      landscape: false,
+      orientation: 'portrait',
     },
     {
       _id: '0007',
@@ -152,7 +152,7 @@ module.exports.data = {
       __v: 0,
       sections: ['01', '09'],
       series: ['008'],
-      landscape: false,
+      orientation: 'portrait',
     },
     {
       _id: '0008',
@@ -174,7 +174,7 @@ module.exports.data = {
       __v: 0,
       sections: ['01', '09'],
       series: ['008'],
-      landscape: true,
+      orientation: 'landscape',
     },
     {
       _id: '0009',
@@ -196,7 +196,7 @@ module.exports.data = {
       __v: 0,
       sections: ['04', '06', '05'],
       series: ['003'],
-      landscape: true,
+      orientation: 'landscape',
     },
     {
       _id: '0010',
@@ -218,7 +218,7 @@ module.exports.data = {
       __v: 0,
       sections: ['01', '08', '03'],
       series: ['008'],
-      landscape: false,
+      orientation: 'portrait',
     },
   ],
 

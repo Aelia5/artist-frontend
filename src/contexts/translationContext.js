@@ -56,6 +56,7 @@ export const translations = {
     letterPlaceholder: 'Write me a letter',
     send: 'Send',
     noContacts: 'Please provide your email or phone number',
+    pictureTitle: 'Pictire title',
   },
   Ru: {
     title: 'Портфолио Сабины Тари',
@@ -108,5 +109,6 @@ export const translations = {
     letterPlaceholder: 'Напишите мне письмо',
     send: 'Отправить',
     noContacts: 'Пожалуйста, укажите вашу почту или телефон',
+    pictureTitle: 'Название картины',
   },
 };

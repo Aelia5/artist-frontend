@@ -14,7 +14,7 @@
   left: calc((100vw - 600px) / 2);
   background-color: #ffeedc;
   width: 600px;
-  height: calc(100vh - 40px);
+  /* height: calc(100vh - 40px); */
   border-radius: 10px;
   box-shadow: 10px 10px 10px #000;
   display: flex;
@@ -65,17 +65,54 @@
   flex-direction: column;
 }
 
-.popup__contacts {
+.popup__inputs {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.popup__contact {
+.popup__input {
   width: 250px;
 }
 
 .popup__button {
   width: 200px;
   margin: auto;
+}
+
+@media screen and (max-width: 640px) {
+  .popup__container {
+    width: 400px;
+    left: calc((100vw - 400px) / 2);
+
+  }
+
+  .popup__title {
+    width: 320px;
+    font-size: 18px;
+  }
+
+  .popup__close-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+  }
+
+  .popup__inputs {
+    flex-direction: column;
+  }
+
+}
+
+@media screen and (max-width: 420px) {
+  .popup__container {
+    width: 300px;
+    left: calc((100vw - 300px) / 2);
+  }
+
+  .popup__title {
+    width: 220px;
+    font-size: 14px;
+  }
 }

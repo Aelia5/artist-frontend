@@ -1,8 +1,12 @@
 import './Picture.css';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { TranslationContext } from '../../contexts/TranslationContext';
 
-function Picture({ picture, lang, section, user, openPopupLetter }) {
+function Picture({ picture, lang, section, user, openPopupLetter, s }) {
+  const navigate = useNavigate();
+
   const translation = React.useContext(TranslationContext);
 
   const [liked, setLiked] = React.useState(
@@ -15,10 +19,14 @@ function Picture({ picture, lang, section, user, openPopupLetter }) {
   }
 
   return (
-    <li className={`picture ${picture.landscape ? 'picture_landscape' : ''}`}>
+    <li
+      className={`picture ${
+        picture.orientation === 'landscape' ? 'picture_landscape' : ''
+      }`}
+    >
       <div
         className={`picture__frame ${
-          picture.landscape ? 'picture__frame_landscape' : ''
+          picture.orientation === 'landscape' ? 'picture__frame_landscape' : ''
         }`}
       >
         <img
@@ -30,7 +38,7 @@ function Picture({ picture, lang, section, user, openPopupLetter }) {
 
       <div
         className={`picture__label ${
-          picture.landscape ? 'picture__label_landscape' : ''
+          picture.orientation === 'landscape' ? 'picture__label_landscape' : ''
         }`}
       >
         <div className="picture__text">
@@ -66,7 +74,12 @@ function Picture({ picture, lang, section, user, openPopupLetter }) {
           {user.admin ? (
             <>
               {' '}
-              <button className="picture__button picture__button_type_edit"></button>
+              <button
+                className="picture__button picture__button_type_edit"
+                onClick={() => {
+                  navigate(`/admin/edit/${picture._id}`);
+                }}
+              ></button>
               <button className="picture__button picture__button_type_delete"></button>
             </>
           ) : (
