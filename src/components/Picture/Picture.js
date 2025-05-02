@@ -4,7 +4,14 @@ import { useNavigate } from 'react-router-dom';
 
 import { TranslationContext } from '../../contexts/TranslationContext';
 
-function Picture({ picture, lang, section, user, openPopupLetter, s }) {
+function Picture({
+  picture,
+  lang,
+  section,
+  user,
+  openPopupLetter,
+  openPopupDelete,
+}) {
   const navigate = useNavigate();
 
   const translation = React.useContext(TranslationContext);
@@ -18,11 +25,20 @@ function Picture({ picture, lang, section, user, openPopupLetter, s }) {
     setLiked(!liked);
   }
 
+  function sendLetter() {
+    openPopupLetter(picture);
+  }
+
+  function deletePicture() {
+    openPopupDelete(picture);
+  }
+
   return (
     <li
       className={`picture ${
         picture.orientation === 'landscape' ? 'picture_landscape' : ''
       }`}
+      id={`i${picture._id}`}
     >
       <div
         className={`picture__frame ${
@@ -77,10 +93,15 @@ function Picture({ picture, lang, section, user, openPopupLetter, s }) {
               <button
                 className="picture__button picture__button_type_edit"
                 onClick={() => {
-                  navigate(`/admin/edit/${picture._id}`);
+                  navigate(`/admin/edit/${picture._id}`, {
+                    state: section.nameEn,
+                  });
                 }}
               ></button>
-              <button className="picture__button picture__button_type_delete"></button>
+              <button
+                className="picture__button picture__button_type_delete"
+                onClick={deletePicture}
+              ></button>
             </>
           ) : (
             <>
@@ -95,7 +116,7 @@ function Picture({ picture, lang, section, user, openPopupLetter, s }) {
               ></button>
               <button
                 className="picture__button picture__button_type_mail"
-                onClick={openPopupLetter}
+                onClick={sendLetter}
                 title={translation.sendLetter}
               ></button>
             </>

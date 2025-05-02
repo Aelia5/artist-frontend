@@ -3,7 +3,14 @@ import React from 'react';
 import { TranslationContext } from '../../contexts/TranslationContext';
 import Series from '../Series/Series';
 
-function Section({ section, lang, data, user, openPopupLetter }) {
+function Section({
+  section,
+  lang,
+  data,
+  user,
+  openPopupLetter,
+  openPopupDelete,
+}) {
   const translation = React.useContext(TranslationContext);
 
   const [pictures, setPictures] = React.useState([]);
@@ -18,6 +25,19 @@ function Section({ section, lang, data, user, openPopupLetter }) {
     });
     setPictures(picturesInSection);
   }, [data, section._id]);
+
+  React.useEffect(() => {
+    pictures.forEach((picture) => {
+      const hash = `#i${picture._id}`;
+      if (document.location.hash === hash) {
+        setTimeout(() => {
+          document
+            .querySelector(hash)
+            .scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+      }
+    });
+  }, [pictures]);
 
   React.useEffect(() => {
     const seriesIds = [];
@@ -67,6 +87,7 @@ function Section({ section, lang, data, user, openPopupLetter }) {
               section={section}
               user={user}
               openPopupLetter={openPopupLetter}
+              openPopupDelete={openPopupDelete}
             />
           );
         })}

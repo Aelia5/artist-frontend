@@ -1,11 +1,13 @@
 import './FormPicture.css';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { useFormWithValidation } from '../Validation/Validation';
 
 function FormPicture({ picture, sections, series }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { values, handleChange, handleCheck, errors, isValid, resetForm } =
     useFormWithValidation();
@@ -333,7 +335,7 @@ function FormPicture({ picture, sections, series }) {
             className="button form-picture__button"
             type="button"
             onClick={() => {
-              navigate(-1);
+              navigate(`/${location.state}#i${picture._id}`);
             }}
           >
             Отказаться

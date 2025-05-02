@@ -33,11 +33,19 @@ function App() {
 
   const [popupOpen, setPopupOpen] = React.useState(false);
   const [popupType, setPopupType] = React.useState('');
-  const [pictureToChange, setPictureToChange] = React.useState();
+  const [pictureToHandle, setPictureToHandle] = React.useState();
 
-  function openPopupLetter() {
+  function openPopupLetter(picture) {
     setPopupOpen(true);
+    setPictureToHandle(picture);
+
     setPopupType('letter');
+  }
+
+  function openPopupDelete(picture) {
+    setPopupOpen(true);
+    setPictureToHandle(picture);
+    setPopupType('delete');
   }
 
   function closePopup() {
@@ -67,7 +75,7 @@ function App() {
               <meta name="description" content={translations[lang].title} />
               <meta name="keywords" content={translations[lang].keyWords} />
               <meta name="author" content={translations[lang].author} />
-              <link rel="manifest" href={`./manifest-${lang}.json`} />
+              <link rel="manifest" href={`/manifest-${lang}.json`} />
               <title>{translations[lang].title}</title>
             </Helmet>
             <Routes>
@@ -187,6 +195,7 @@ function App() {
                           data={data}
                           user={currentUser}
                           openPopupLetter={openPopupLetter}
+                          openPopupDelete={openPopupDelete}
                         />
                         <Footer width={width} />
                         {popupOpen && (
@@ -194,7 +203,7 @@ function App() {
                             user={currentUser}
                             closePopup={closePopup}
                             type={popupType}
-                            picture={pictureToChange}
+                            picture={pictureToHandle}
                           />
                         )}
                       </>

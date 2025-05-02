@@ -51,11 +51,21 @@ function Popup({ user, closePopup, type, picture }) {
 
   return (
     <div className="popup">
-      <div className="popup__container" ref={containerRef}>
+      <div
+        className={`popup__container ${
+          type === 'delete' && 'popup__container_type_delete'
+        }`}
+        ref={containerRef}
+      >
         <div className="popup__header">
           {type === 'letter' && (
             <h2 className="form-title popup__title">
               {translation.sendLetter}
+            </h2>
+          )}
+          {type === 'delete' && (
+            <h2 className="form-title popup__title">
+              Удаление картины "{picture.nameRu}"
             </h2>
           )}
           <button className="popup__close-button" onClick={closePopup}></button>
@@ -131,6 +141,22 @@ function Popup({ user, closePopup, type, picture }) {
             </button>
           </form>
         )}
+        {
+          (type = 'delete' && (
+            <>
+              <p className="form-title popup__title">Вы уверены?</p>
+              <div className="popup__buttons">
+                {' '}
+                <button className="button popup__button" onClick={close}>
+                  Удалить
+                </button>
+                <button className="button popup__button" onClick={close}>
+                  Отказаться
+                </button>
+              </div>
+            </>
+          ))
+        }
       </div>
     </div>
   );

@@ -69,27 +69,27 @@
   margin: 0;
   padding: 0;
   font-weight: 600;
-  font-size: calc((100vw - 500px)/(1000 - 500) * (18 - 7) + 7px);
+  font-size: 18px;
   color: #000;
   text-align: center;
 }
 
 .picture__title_type_long {
-  font-size: calc(((100vw - 500px)/(1000 - 500) * (18 - 7) + 7px)*.75);
+  font-size: 16px;
 }
 
 .picture__info {
   margin: 0;
   padding: 0;
   font-weight: 400;
-  font-size: calc((100vw - 500px)/(1000 - 500) * (16 - 6) + 6px);
+  font-size: 16px;
   color: #000;
   font-style: italic;
   text-align: center;
 }
 
 .picture__info_type_long {
-  font-size: calc(((100vw - 500px)/(1000 - 500) * (16 - 6) + 6px)*.75);
+  font-size: 15px;
 }
 
 .picture__buttons {
@@ -136,7 +136,25 @@
   background-image: url(../../images/icons/delete.svg);
 }
 
+@media screen and (max-width: 1280px) {
+  .picture__title {
+    font-size: calc((100vw - 500px)/(1000 - 500) * (18 - 7) + 7px);
+  }
 
+  .picture__title_type_long {
+    font-size: calc(((100vw - 500px)/(1000 - 500) * (18 - 7) + 7px)*.75);
+  }
+
+  .picture__info {
+    font-size: calc((100vw - 500px)/(1000 - 500) * (16 - 6) + 6px);
+
+  }
+
+  .picture__info_type_long {
+    font-size: calc(((100vw - 500px)/(1000 - 500) * (16 - 6) + 6px)*.75);
+  }
+
+}
 
 @media screen and (max-width: 999px) {
   .picture__label {

@@ -11,6 +11,7 @@ function Series({
   section,
   user,
   openPopupLetter,
+  openPopupDelete,
 }) {
   const [picturesHere, setPicturesHere] = React.useState([]);
 
@@ -39,6 +40,7 @@ function Series({
             key={picture._id}
             user={user}
             openPopupLetter={openPopupLetter}
+            openPopupDelete={openPopupDelete}
           />
         ))}
       </ul>
