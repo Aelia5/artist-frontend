@@ -1,0 +1,40 @@
+.admin-panel {
+  display: flex;
+  flex-direction: column;
+  margin: 60px auto;
+  width: 600px;
+}
+
+.admin-panel__form {
+  width: 100%;
+  margin-bottom: 20px
+}
+
+.admin-panel__label {
+  width: 100%
+}
+
+.admin-panel__button {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 640px) {
+  .admin-panel {
+    width: 400px;
+  }
+
+}
+
+@media screen and (max-width: 420px) {
+  .admin-panel {
+    width: 320px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .admin-panel {
+    width: 300px;
+  }
+
+
+}

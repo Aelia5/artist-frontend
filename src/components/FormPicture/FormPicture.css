@@ -1,5 +1,5 @@
 .form-picture {
-  margin: 30px auto;
+  margin: 0 auto;
   width: 600px;
   display: flex;
   flex-direction: column;
@@ -19,6 +19,10 @@
 
 .form-picture__input {
   width: 250px;
+}
+
+.form-picture__input_type_link {
+  width: 100%
 }
 
 

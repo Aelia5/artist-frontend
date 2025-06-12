@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useFormWithValidation } from '../Validation/Validation';
 
-function FormPicture({ picture, sections, series }) {
+function FormPicture({ picture, sections, series, close }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,14 +24,47 @@ function FormPicture({ picture, sections, series }) {
     // }
   }
 
+  function handleReject() {
+    if (picture) {
+      navigate(`/${location.state}#i${picture._id}`);
+    } else {
+      close();
+    }
+  }
+
   let apiError;
 
   return (
-    <main className="form-picture">
-      <h2 className="form-title form-picture__title">
-        Редактирование картины "{picture.nameRu}"
-      </h2>
+    <div className="form-picture">
+      {picture && (
+        <h2 className="form-title form-picture__title">
+          Редактирование картины "{picture.nameRu}"
+        </h2>
+      )}
+
       <form className="form-picture__form" onSubmit={handleSubmit} noValidate>
+        {!picture && (
+          <>
+            <div className="form-picture__input form-picture__input_type_link">
+              <label className="form__label" htmlFor="link">
+                Ссылка на картину
+                <input
+                  className="form__input"
+                  type="url"
+                  id="link"
+                  name="link"
+                  value={values.link || ''}
+                  onChange={handleChange}
+                  required
+                  // disabled={blocked}
+                ></input>
+              </label>
+              <p className="form__input-error profile__input-error">
+                {errors.link}
+              </p>
+            </div>
+          </>
+        )}
         <div className="form-picture__input">
           <label className="form__label" htmlFor="nameRu">
             Название картины
@@ -334,15 +367,13 @@ function FormPicture({ picture, sections, series }) {
           <button
             className="button form-picture__button"
             type="button"
-            onClick={() => {
-              navigate(`/${location.state}#i${picture._id}`);
-            }}
+            onClick={handleReject}
           >
             Отказаться
           </button>
         </div>
       </form>
-    </main>
+    </div>
   );
 }
 

@@ -12,6 +12,7 @@ import Profile from '../Profile/Profile';
 import Section from '../Section/Section';
 import Popup from '../Popup/Popup';
 import FormPicture from '../FormPicture/FormPicture';
+import AdminPanel from '../AdminPanel/AdminPanel';
 
 import {
   TranslationContext,
@@ -169,6 +170,32 @@ function App() {
                   ) : (
                     <>
                       <Navigate to="/signin" replace />
+                    </>
+                  )
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  currentUser.admin ? (
+                    <>
+                      <Header
+                        user={currentUser}
+                        data={data}
+                        setRus={setRus}
+                        setEng={setEng}
+                        width={width}
+                        lang={lang}
+                        //  signOut={signOut}
+                      />
+                      <AdminPanel
+                        sections={data.sections}
+                        series={data.series}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Navigate to="/" replace />
                     </>
                   )
                 }

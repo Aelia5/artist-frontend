@@ -7,3 +7,9 @@
   font-style: italic;
   text-shadow: 1px 1px 42x #000;
 }
+
+@media screen and (max-width: 450px) {
+  .form-title {
+    font-size: 18px;
+  }
+}
