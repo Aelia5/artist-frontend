@@ -34,19 +34,25 @@ function App() {
 
   const [popupOpen, setPopupOpen] = React.useState(false);
   const [popupType, setPopupType] = React.useState('');
-  const [pictureToHandle, setPictureToHandle] = React.useState();
+  const [itemToHandle, setItemToHandle] = React.useState({});
 
   function openPopupLetter(picture) {
     setPopupOpen(true);
-    setPictureToHandle(picture);
+    setItemToHandle({ item: picture, itemType: 'picture' });
 
     setPopupType('letter');
   }
 
-  function openPopupDelete(picture) {
+  function openPopupDelete(item, itemType) {
     setPopupOpen(true);
-    setPictureToHandle(picture);
+    setItemToHandle({ item: item, itemType: itemType });
     setPopupType('delete');
+  }
+
+  function openPopupEdit(item, itemType) {
+    setPopupOpen(true);
+    setItemToHandle({ item: item, itemType: itemType });
+    setPopupType('edit');
   }
 
   function closePopup() {
@@ -223,6 +229,7 @@ function App() {
                           user={currentUser}
                           openPopupLetter={openPopupLetter}
                           openPopupDelete={openPopupDelete}
+                          openPopupEdit={openPopupEdit}
                         />
                         <Footer width={width} />
                         {popupOpen && (
@@ -230,7 +237,7 @@ function App() {
                             user={currentUser}
                             closePopup={closePopup}
                             type={popupType}
-                            picture={pictureToHandle}
+                            item={itemToHandle}
                           />
                         )}
                       </>

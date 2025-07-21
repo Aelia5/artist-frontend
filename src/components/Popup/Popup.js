@@ -5,7 +5,7 @@ import { TranslationContext } from '../../contexts/TranslationContext';
 
 import { useFormWithValidation } from '../Validation/Validation';
 
-function Popup({ user, closePopup, type, picture }) {
+function Popup({ user, closePopup, type, item }) {
   const translation = React.useContext(TranslationContext);
 
   const { values, handleChange, errors, isValid, resetForm } =
@@ -41,11 +41,15 @@ function Popup({ user, closePopup, type, picture }) {
   }
 
   React.useEffect(() => {
-    resetForm(user, {}, false);
-  }, [user, resetForm]);
+    if (type === 'letter') {
+      resetForm(user, {}, false);
+    } else if (type === 'edit') {
+      resetForm(item.item, {}, false);
+    }
+  }, [user, item, type, resetForm]);
 
   let apiError;
-  if (!values.email && !values.phone) {
+  if (type === 'letter' && !values.email && !values.phone) {
     apiError = translation.noContacts;
   }
 
@@ -65,7 +69,21 @@ function Popup({ user, closePopup, type, picture }) {
           )}
           {type === 'delete' && (
             <h2 className="form-title popup__title">
-              Удаление картины "{picture.nameRu}"
+              {item.itemType === 'picture' &&
+                `Удаление картины "${item.item.nameRu}"`}
+              {item.itemType === 'section' &&
+                `Удаление раздела "${item.item.nameRu}"`}
+              {item.itemType === 'series' &&
+                `Удаление серии "${item.item.nameRu}"`}
+            </h2>
+          )}
+          {type === 'edit' && (
+            <h2 className="form-title popup__title">
+              {' '}
+              {item.itemType === 'section' &&
+                `Редактирование раздела "${item.item.nameRu}"`}
+              {item.itemType === 'series' &&
+                `Редактирование серии "${item.item.nameRu}"`}
             </h2>
           )}
           <button className="popup__close-button" onClick={closePopup}></button>
@@ -141,22 +159,76 @@ function Popup({ user, closePopup, type, picture }) {
             </button>
           </form>
         )}
-        {
-          (type = 'delete' && (
-            <>
-              <p className="form-title popup__title">Вы уверены?</p>
-              <div className="popup__buttons">
-                {' '}
-                <button className="button popup__button" onClick={close}>
-                  Удалить
-                </button>
-                <button className="button popup__button" onClick={close}>
-                  Отказаться
-                </button>
+
+        {type === 'edit' && (
+          <form className="popup__form" onSubmit={handleSubmit} noValidate>
+            <div className="popup__inputs">
+              <div className="popup__input">
+                <label className="form__label" htmlFor="nameRu">
+                  Русское название
+                  <input
+                    className="form__input"
+                    type="text"
+                    id="nameRu"
+                    name="nameRu"
+                    value={values.nameRu || ''}
+                    minLength="2"
+                    maxLength="100"
+                    onChange={handleChange}
+                    // disabled={blocked}
+                  ></input>
+                </label>
+                <p className="form__input-error profile__input-error">
+                  {errors.nameRu}
+                </p>
               </div>
-            </>
-          ))
-        }
+              <div className="popup__input">
+                <label className="form__label" htmlFor="nameEn">
+                  Английское название
+                  <input
+                    className="form__input"
+                    type="text"
+                    id="nameEn"
+                    name="nameEn"
+                    minLength="2"
+                    maxLength="100"
+                    value={values.nameEn || ''}
+                    onChange={handleChange}
+                  ></input>
+                </label>
+                <p className="form__input-error profile__input-error">
+                  {errors.nameEn}
+                </p>
+              </div>
+            </div>
+            <p className="form__input-error profile__input-error">
+              {errors.letter}
+            </p>{' '}
+            <p className="api-error"> {apiError}</p>
+            <button
+              className="button popup__button"
+              type="submit"
+              disabled={!isValid || apiError}
+            >
+              {translation.send}
+            </button>
+          </form>
+        )}
+
+        {type === 'delete' && (
+          <>
+            <p className="form-title popup__title">Вы уверены?</p>
+            <div className="popup__buttons">
+              {' '}
+              <button className="button popup__button" onClick={close}>
+                Удалить
+              </button>
+              <button className="button popup__button" onClick={close}>
+                Отказаться
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -26,11 +26,11 @@ function Picture({
   }
 
   function sendLetter() {
-    openPopupLetter(picture);
+    openPopupLetter(picture, 'picture');
   }
 
   function deletePicture() {
-    openPopupDelete(picture);
+    openPopupDelete(picture, 'picture');
   }
 
   return (
@@ -91,7 +91,7 @@ function Picture({
             <>
               {' '}
               <button
-                className="picture__button picture__button_type_edit"
+                className="little-button little-button_type_edit picture__button"
                 onClick={() => {
                   navigate(`/admin/edit/${picture._id}`, {
                     state: section.nameEn,
@@ -99,7 +99,7 @@ function Picture({
                 }}
               ></button>
               <button
-                className="picture__button picture__button_type_delete"
+                className="little-button little-button_type_delete picture__button"
                 onClick={deletePicture}
               ></button>
             </>
@@ -107,15 +107,15 @@ function Picture({
             <>
               {' '}
               <button
-                className={`picture__button ${
+                className={`little-button ${
                   liked
-                    ? 'picture__button_type_unlike'
-                    : 'picture__button_type_like'
-                }`}
+                    ? 'little-button_type_unlike'
+                    : 'little-button_type_like'
+                } picture__button`}
                 onClick={toggleLike}
               ></button>
               <button
-                className="picture__button picture__button_type_mail"
+                className="little-button little-button_type_mail picture__button"
                 onClick={sendLetter}
                 title={translation.sendLetter}
               ></button>

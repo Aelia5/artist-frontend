@@ -65,6 +65,10 @@
   width: 100%;
 }
 
+.section__button {
+  margin-left: 20px;
+}
+
 
 @media screen and (max-width: 1280px) {
   .section {

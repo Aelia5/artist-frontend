@@ -36,6 +36,10 @@
   align-items: stretch;
 }
 
+.series__button {
+  margin-left: 20px;
+}
+
 @media screen and (max-width: 1280px) {
   .series__list {
     grid-auto-rows: calc((100vw - 180px) / 3 * 2);

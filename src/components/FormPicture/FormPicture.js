@@ -13,7 +13,11 @@ function FormPicture({ picture, sections, series, close }) {
     useFormWithValidation();
 
   React.useEffect(() => {
-    resetForm(picture, {}, false);
+    if (picture) {
+      resetForm(picture, {}, false);
+    } else {
+      resetForm({ sections: [], series: [] }, {}, false);
+    }
   }, [resetForm, picture]);
 
   function handleSubmit(e) {
@@ -53,7 +57,6 @@ function FormPicture({ picture, sections, series, close }) {
                   type="url"
                   id="link"
                   name="link"
-                  value={values.link || ''}
                   onChange={handleChange}
                   required
                   // disabled={blocked}

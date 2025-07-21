@@ -10,12 +10,21 @@ function Section({
   user,
   openPopupLetter,
   openPopupDelete,
+  openPopupEdit,
 }) {
   const translation = React.useContext(TranslationContext);
 
   const [pictures, setPictures] = React.useState([]);
   const [series, setSeries] = React.useState([]);
   const [onlyNoSeries, setOnlyNoSeries] = React.useState([]);
+
+  function deleteSection() {
+    openPopupDelete(section, 'section');
+  }
+
+  function editSection() {
+    openPopupEdit(section, 'section');
+  }
 
   React.useEffect(() => {
     const picturesInSection = data.pictures.filter((picture) => {
@@ -58,7 +67,21 @@ function Section({
 
   return (
     <main className="section">
-      <h1 className="section__title">{section[`name${lang}`]}</h1>
+      <h1 className="section__title">
+        {section[`name${lang}`]}
+        {user.admin && (
+          <>
+            <button
+              className="little-button little-button_type_edit section__button"
+              onClick={editSection}
+            ></button>
+            <button
+              className="little-button little-button_type_delete section__button"
+              onClick={deleteSection}
+            ></button>
+          </>
+        )}
+      </h1>
       {pictures.length === 0 && (
         <p className="section__series-link">{translation.empty}</p>
       )}
@@ -88,6 +111,7 @@ function Section({
               user={user}
               openPopupLetter={openPopupLetter}
               openPopupDelete={openPopupDelete}
+              openPopupEdit={openPopupEdit}
             />
           );
         })}

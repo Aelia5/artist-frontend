@@ -1,0 +1,34 @@
+.little-button {
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.little-button:hover {
+  opacity: .8;
+}
+
+.little-button_type_like {
+  background-image: url(../images/icons/unliked.svg);
+}
+
+.little-button_type_unlike {
+  background-image: url(../images/icons/liked.svg);
+}
+
+.little-button_type_mail {
+  background-image: url(../images/icons/mail-pensil.svg);
+}
+
+.little-button_type_edit {
+  background-image: url(../images/icons/edit.svg);
+}
+
+.little-button_type_delete {
+  background-image: url(../images/icons/delete.svg);
+}

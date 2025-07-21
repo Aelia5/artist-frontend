@@ -35,7 +35,7 @@ export function useFormWithValidation() {
     const target = event.target;
     const name = target.name;
     const value = target.value;
-    const checkboxValues = values[name];
+    const checkboxValues = values[name] || [];
     let newCheckboxValues;
     if (
       checkboxValues.some((v) => {
@@ -49,7 +49,9 @@ export function useFormWithValidation() {
       checkboxValues.push(value);
       newCheckboxValues = checkboxValues;
     }
+
     setValues({ ...values, [name]: newCheckboxValues });
+
     setIsValid(target.closest('form').checkValidity());
   };
 
