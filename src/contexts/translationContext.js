@@ -57,6 +57,11 @@ export const translations = {
     send: 'Send',
     noContacts: 'Please provide your email or phone number',
     pictureTitle: 'Pictire title',
+    checkMail: 'Check your email',
+    checkMailExplanation: 'A confirmation link was sent to you',
+    success: 'Your email is succesfully verified!',
+    failure: 'Email verification has failed',
+    repeat: 'Your email has already been verified',
   },
   Ru: {
     title: 'Портфолио Сабины Тари',
@@ -110,5 +115,11 @@ export const translations = {
     send: 'Отправить',
     noContacts: 'Пожалуйста, укажите вашу почту или телефон',
     pictureTitle: 'Название картины',
+    checkMail: 'Проверьте вашу почту',
+    checkMailExplanation:
+      'Вам отправлено письмо со ссылкой для подтверждения регистрации',
+    success: 'Ваша почта подтверждена!',
+    failure: 'Подтвердить почту не удалось',
+    repeat: 'Вы уже подтвердили регистрацию',
   },
 };

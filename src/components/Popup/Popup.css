@@ -27,6 +27,10 @@
   top: 200px;
 }
 
+.popup__container_type_centered {
+  top: calc((100dvh - 75px)/2);
+}
+
 .popup__header {
   display: flex;
   flex-direction: row;
@@ -40,6 +44,20 @@
   margin-right: 10px;
   width: 510px;
   text-align: center;
+}
+
+.popup__text {
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 510px;
+  text-align: center;
+  padding: 0;
+  font-weight: 600;
+  font-size: 18px;
+  color: #6c350f;
+  font-style: italic;
+  text-shadow: 1px 1px 42x #000;
 }
 
 .popup__close-button {

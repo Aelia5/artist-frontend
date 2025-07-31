@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import './App.css';
 
 import Header from '../Header/Header';
@@ -13,6 +13,10 @@ import Section from '../Section/Section';
 import Popup from '../Popup/Popup';
 import FormPicture from '../FormPicture/FormPicture';
 import AdminPanel from '../AdminPanel/AdminPanel';
+import Api from '../../utils/Api';
+import EmailVerification from '../EmailVerification/EmailVerification.js';
+
+import { data } from '../../utils/constants.js';
 
 import {
   TranslationContext,
@@ -21,9 +25,11 @@ import {
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-import { data, admin, user } from '../../utils/constants';
-
 function App() {
+  const navigate = useNavigate();
+
+  const { register, login, getUser, verifyEmail } = Api();
+
   const [lang, setLang] = React.useState('En');
   function setRus() {
     setLang('Ru');
@@ -31,10 +37,31 @@ function App() {
   function setEng() {
     setLang('En');
   }
+  //Стейты
+
+  const [currentUser, setCurrentUser] = React.useState({});
+  const updateUser = React.useCallback((data) => {
+    setCurrentUser(data);
+  }, []);
+
+  const [loggedIn, setLoggedIn] = React.useState(
+    JSON.parse(localStorage.getItem('loggedIn')) || false
+  );
+
+  const [registerError, setRegisterError] = React.useState('');
+  const changeRegisterError = React.useCallback((errorMessage) => {
+    setRegisterError(errorMessage);
+  }, []);
+
+  const [formsBlocked, setFormsBlocked] = React.useState(false);
 
   const [popupOpen, setPopupOpen] = React.useState(false);
   const [popupType, setPopupType] = React.useState('');
   const [itemToHandle, setItemToHandle] = React.useState({});
+
+  const [width, setWidth] = React.useState(window.innerWidth);
+
+  // Управление попапами
 
   function openPopupLetter(picture) {
     setPopupOpen(true);
@@ -42,6 +69,25 @@ function App() {
 
     setPopupType('letter');
   }
+
+  function openPopupSent() {
+    setPopupOpen(true);
+    setPopupType('sent');
+  }
+
+  const openPopupSuccess = React.useCallback(() => {
+    setPopupOpen(true);
+    setPopupType('success');
+  }, []);
+
+  const openPopupFailure = React.useCallback(() => {
+    setPopupOpen(true);
+    setPopupType('failure');
+  }, []);
+  const openPopupRepeat = React.useCallback(() => {
+    setPopupOpen(true);
+    setPopupType('repeat');
+  }, []);
 
   function openPopupDelete(item, itemType) {
     setPopupOpen(true);
@@ -59,7 +105,57 @@ function App() {
     setPopupOpen(false);
     setPopupType('');
   }
-  const [width, setWidth] = React.useState(window.innerWidth);
+
+  //Функции управления профилем
+
+  function authorize(token, resetForm, nav) {
+    localStorage.setItem('token', token);
+    getUser(token)
+      .then((res) => {
+        return res;
+      })
+      .then((userData) => {
+        resetForm();
+        setCurrentUser(userData);
+        setLoggedIn(true);
+
+        nav && navigate('/', { replace: true });
+      });
+  }
+
+  function handleRegistrationSubmit(data, resetForm) {
+    setFormsBlocked(true);
+    register(data)
+      .then(() => {
+        openPopupSent();
+        return login(data);
+      })
+      .then((res) => {
+        authorize(res.token, resetForm, false);
+      })
+      .catch((err) => {
+        setRegisterError(err);
+      })
+      .finally(() => {
+        setFormsBlocked(false);
+      });
+  }
+
+  //Исправить верстку попапа
+  //Сделать разные варианты сообщений о неудаче
+  //Проверить успешное подтверждение
+
+  const signOut = React.useCallback(() => {
+    const keysToRemove = ['token', 'loggedIn'];
+    keysToRemove.forEach((key) => localStorage.removeItem(key));
+
+    setCurrentUser({});
+    setLoggedIn(false);
+
+    navigate('/', { replace: true });
+  }, [navigate]);
+
+  // Эффекты
 
   React.useEffect(() => {
     function handleResizeWindow() {
@@ -71,7 +167,28 @@ function App() {
     };
   }, []);
 
-  const currentUser = admin;
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      getUser(token)
+        .then((res) => {
+          return res;
+        })
+        .then((userData) => {
+          setCurrentUser(userData);
+          setLoggedIn(true);
+        })
+        .catch(() => {
+          signOut();
+        });
+    }
+  }, [getUser, signOut]);
+
+  React.useEffect(() => {
+    localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
+  }, [loggedIn]);
+
+  console.log(currentUser);
 
   return (
     <HelmetProvider>
@@ -97,6 +214,7 @@ function App() {
                       data={data}
                       lang={lang}
                       user={currentUser}
+                      loggedIn={loggedIn}
                     />
                     <Main width={width} />
                   </>
@@ -105,7 +223,7 @@ function App() {
               <Route
                 path="/signin"
                 element={
-                  currentUser ? (
+                  loggedIn ? (
                     <>
                       <Navigate to="/profile" replace />
                     </>
@@ -118,6 +236,7 @@ function App() {
                         data={data}
                         lang={lang}
                         user={''}
+                        loggedIn={loggedIn}
                       />
                       <Login />
                       <Footer width={width} />
@@ -128,7 +247,7 @@ function App() {
               <Route
                 path="/signup"
                 element={
-                  currentUser ? (
+                  loggedIn && !popupOpen ? (
                     <>
                       <Navigate to="/profile" replace />
                     </>
@@ -141,9 +260,22 @@ function App() {
                         data={data}
                         lang={lang}
                         user={currentUser}
+                        loggedIn={loggedIn}
                       />
-                      <Register />
+                      <Register
+                        apiError={registerError}
+                        changeApiError={changeRegisterError}
+                        handleRegistrationSubmit={handleRegistrationSubmit}
+                        blocked={formsBlocked}
+                      />
                       <Footer width={width} />
+                      {popupOpen && (
+                        <Popup
+                          user={currentUser}
+                          closePopup={closePopup}
+                          popupType={popupType}
+                        />
+                      )}
                     </>
                   )
                 }
@@ -160,16 +292,16 @@ function App() {
                         setEng={setEng}
                         width={width}
                         lang={lang}
-                        //  signOut={signOut}
+                        loggedIn={loggedIn}
+                        signOut={signOut}
                       />
                       <Profile
-
-                      // onExit={signOut}
-                      // handleEditProfileSubmit={handleEditProfileSubmit}
-                      // apiError={profileError}
-                      // changeApiError={changeProfileError}
-                      // blocked={formsBlocked}
-                      // editSuccess={editSuccess}
+                        onExit={signOut}
+                        // handleEditProfileSubmit={handleEditProfileSubmit}
+                        // apiError={profileError}
+                        // changeApiError={changeProfileError}
+                        // blocked={formsBlocked}
+                        // editSuccess={editSuccess}
                       />
                       <Footer width={width} />
                     </>
@@ -192,6 +324,7 @@ function App() {
                         setEng={setEng}
                         width={width}
                         lang={lang}
+                        loggedIn={loggedIn}
                         //  signOut={signOut}
                       />
                       <AdminPanel
@@ -204,6 +337,28 @@ function App() {
                       <Navigate to="/" replace />
                     </>
                   )
+                }
+              />
+              <Route
+                path="/verify/:userId/:token"
+                element={
+                  <>
+                    <EmailVerification
+                      verifyEmail={verifyEmail}
+                      updateUser={updateUser}
+                      openPopupSuccess={openPopupSuccess}
+                      openPopupFailure={openPopupFailure}
+                      openPopupRepeat={openPopupRepeat}
+                      popupOpen={popupOpen}
+                    />
+                    {popupOpen && (
+                      <Popup
+                        user={currentUser}
+                        closePopup={closePopup}
+                        popupType={popupType}
+                      />
+                    )}
+                  </>
                 }
               />
               {data.sections.map((section) => (
@@ -220,6 +375,7 @@ function App() {
                           setEng={setEng}
                           width={width}
                           lang={lang}
+                          loggedIn={loggedIn}
                           //  signOut={signOut}
                         />
                         <Section
@@ -236,7 +392,7 @@ function App() {
                           <Popup
                             user={currentUser}
                             closePopup={closePopup}
-                            type={popupType}
+                            popupType={popupType}
                             item={itemToHandle}
                           />
                         )}
@@ -263,6 +419,7 @@ function App() {
                           setEng={setEng}
                           width={width}
                           lang={lang}
+                          loggedIn={loggedIn}
                           //  signOut={signOut}
                         />
                         <FormPicture

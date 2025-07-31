@@ -1,27 +1,40 @@
 import './Popup.css';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { TranslationContext } from '../../contexts/TranslationContext';
 
 import { useFormWithValidation } from '../Validation/Validation';
 
-function Popup({ user, closePopup, type, item }) {
+function Popup({ user, closePopup, popupType, item }) {
+  const navigate = useNavigate();
+
   const translation = React.useContext(TranslationContext);
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
-  function close() {
-    closePopup();
-    resetForm();
-  }
+  const close = useCallback(() => {
+    if (popupType === 'sent' || 'success' || 'failure') {
+      closePopup();
+      navigate('/', { replace: true });
+    } else {
+      closePopup();
+      resetForm();
+    }
+  }, [closePopup, navigate, popupType, resetForm]);
 
   const containerRef = useRef();
 
   React.useEffect(() => {
     const checkIfClickedOutside = (e) => {
       if (!containerRef.current.contains(e.target)) {
-        closePopup();
+        if (popupType === 'sent' || 'success' || 'failure') {
+          close();
+        } else {
+          closePopup();
+        }
       }
     };
     document.addEventListener('mousedown', checkIfClickedOutside);
@@ -29,7 +42,7 @@ function Popup({ user, closePopup, type, item }) {
     return () => {
       document.removeEventListener('mousedown', checkIfClickedOutside);
     };
-  }, [closePopup]);
+  }, [close, closePopup, popupType]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -41,33 +54,46 @@ function Popup({ user, closePopup, type, item }) {
   }
 
   React.useEffect(() => {
-    if (type === 'letter') {
+    if (popupType === 'letter') {
       resetForm(user, {}, false);
-    } else if (type === 'edit') {
+    } else if (popupType === 'edit') {
       resetForm(item.item, {}, false);
     }
-  }, [user, item, type, resetForm]);
+  }, [user, item, popupType, resetForm]);
 
   let apiError;
-  if (type === 'letter' && !values.email && !values.phone) {
+  if (popupType === 'letter' && !values.email && !values.phone) {
     apiError = translation.noContacts;
   }
-
   return (
     <div className="popup">
       <div
         className={`popup__container ${
-          type === 'delete' && 'popup__container_type_delete'
-        }`}
+          popupType === 'delete' && 'popup__container_type_delete'
+        } ${popupType === 'failure' && 'popup__container_type_centered'} ${
+          popupType === 'success' && 'popup__container_type_centered'
+        } ${popupType === 'repeat' && 'popup__container_type_centered'}`}
         ref={containerRef}
       >
         <div className="popup__header">
-          {type === 'letter' && (
+          {popupType === 'letter' && (
             <h2 className="form-title popup__title">
               {translation.sendLetter}
             </h2>
           )}
-          {type === 'delete' && (
+          {popupType === 'sent' && (
+            <h2 className="form-title popup__title">{translation.checkMail}</h2>
+          )}
+          {popupType === 'success' && (
+            <h2 className="form-title popup__title">{translation.success}</h2>
+          )}
+          {popupType === 'failure' && (
+            <h2 className="form-title popup__title">{translation.failure}</h2>
+          )}
+          {popupType === 'repeat' && (
+            <h2 className="form-title popup__title">{translation.repeat}</h2>
+          )}
+          {popupType === 'delete' && (
             <h2 className="form-title popup__title">
               {item.itemType === 'picture' &&
                 `Удаление картины "${item.item.nameRu}"`}
@@ -77,7 +103,7 @@ function Popup({ user, closePopup, type, item }) {
                 `Удаление серии "${item.item.nameRu}"`}
             </h2>
           )}
-          {type === 'edit' && (
+          {popupType === 'edit' && (
             <h2 className="form-title popup__title">
               {' '}
               {item.itemType === 'section' &&
@@ -86,9 +112,9 @@ function Popup({ user, closePopup, type, item }) {
                 `Редактирование серии "${item.item.nameRu}"`}
             </h2>
           )}
-          <button className="popup__close-button" onClick={closePopup}></button>
+          <button className="popup__close-button" onClick={close}></button>
         </div>
-        {type === 'letter' && (
+        {popupType === 'letter' && (
           <form className="popup__form" onSubmit={handleSubmit} noValidate>
             <div className="popup__inputs">
               <div className="popup__input">
@@ -160,7 +186,11 @@ function Popup({ user, closePopup, type, item }) {
           </form>
         )}
 
-        {type === 'edit' && (
+        {popupType === 'sent' && (
+          <p className="popup__text">{translation.checkMailExplanation}</p>
+        )}
+
+        {popupType === 'edit' && (
           <form className="popup__form" onSubmit={handleSubmit} noValidate>
             <div className="popup__inputs">
               <div className="popup__input">
@@ -215,7 +245,7 @@ function Popup({ user, closePopup, type, item }) {
           </form>
         )}
 
-        {type === 'delete' && (
+        {popupType === 'delete' && (
           <>
             <p className="form-title popup__title">Вы уверены?</p>
             <div className="popup__buttons">

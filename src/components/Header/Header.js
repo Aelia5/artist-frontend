@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import LangSwitcher from '../LangSwitcher/LangSwitcher';
 import Menu from '../Menu/Menu';
 
-function Header({ setRus, setEng, width, data, lang, user }) {
+function Header({ setRus, setEng, width, data, lang, user, loggedIn }) {
   const navigate = useNavigate();
   const menuRef = useRef();
   const closeRef = useRef();
@@ -66,9 +66,9 @@ function Header({ setRus, setEng, width, data, lang, user }) {
       <button
         className="header__profile-button"
         onClick={() => {
-          user ? navigate('/profile') : navigate('/signin');
+          loggedIn ? navigate('/profile') : navigate('/signin');
         }}
-        title={user ? translation.profile : translation.login}
+        title={loggedIn ? translation.profile : translation.login}
       />
       <button
         className={`header__button ${

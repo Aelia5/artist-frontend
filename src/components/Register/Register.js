@@ -4,14 +4,12 @@ import { useFormWithValidation } from '../Validation/Validation';
 
 import { TranslationContext } from '../../contexts/TranslationContext';
 
-function Register(
-  {
-    // handleRegistrationSubmit,
-    // apiError,
-    // changeApiError,
-    // blocked,
-  }
-) {
+function Register({
+  handleRegistrationSubmit,
+  apiError,
+  changeApiError,
+  blocked,
+}) {
   const translation = React.useContext(TranslationContext);
 
   const { values, handleChange, errors, isValid, resetForm } =
@@ -19,16 +17,15 @@ function Register(
 
   function handleSubmit(e) {
     e.preventDefault();
-    // if (isValid) {
-    //   handleRegistrationSubmit(values, resetForm);
-    // }
+    if (isValid) {
+      handleRegistrationSubmit(values, resetForm);
+    }
   }
 
-  // React.useEffect(() => {
-  //   changeApiError('');
-  // }, [changeApiError, values]);
+  React.useEffect(() => {
+    changeApiError('');
+  }, [changeApiError, values]);
 
-  const apiError = 'Тестовая ошибка';
   return (
     <main className="register">
       <section className="register__container">
@@ -50,7 +47,7 @@ function Register(
             title={translation.nameTitle}
             value={values.name || ''}
             required
-            // disabled={blocked}
+            disabled={blocked}
           ></input>
           <p className="form__input-error">{errors.name}</p>
           <label htmlFor="email" className="form__label">
@@ -66,7 +63,7 @@ function Register(
             onChange={handleChange}
             value={values.email || ''}
             required
-            // disabled={blocked}
+            disabled={blocked}
           ></input>
           <p className="form__input-error">{errors.email}</p>
           <label htmlFor="password" className="form__label">
@@ -82,7 +79,7 @@ function Register(
             onChange={handleChange}
             value={values.password || ''}
             required
-            // disabled={blocked}
+            disabled={blocked}
           ></input>
           <p className="form__input-error">{errors.password}</p>
           <label htmlFor="confirm" className="form__label">
@@ -98,17 +95,14 @@ function Register(
             onChange={handleChange}
             value={values.confirm || ''}
             required
-            // disabled={blocked}
+            disabled={blocked}
           ></input>
           <p className="form__input-error">{errors.confirm}</p>
           <p className="api-error">{apiError}</p>
           <button
             type="submit"
             className="button"
-            disabled={
-              !isValid
-              //  || apiError || blocked
-            }
+            disabled={!isValid || apiError || blocked}
           >
             {translation.register}
           </button>

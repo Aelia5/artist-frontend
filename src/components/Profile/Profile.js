@@ -8,16 +8,14 @@ import PasswordEdit from '../PasswordEdit/PasswordEdit';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { TranslationContext } from '../../contexts/TranslationContext';
 
-function Profile(
-  {
-    //onExit,
-    //apiError,
-    // changeApiError,
-    //handleEditProfileSubmit,
-    //blocked,
-    //editSuccess,
-  }
-) {
+function Profile({
+  onExit,
+  //apiError,
+  // changeApiError,
+  //handleEditProfileSubmit,
+  //blocked,
+  //editSuccess,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
   const translation = React.useContext(TranslationContext);
 
@@ -72,7 +70,7 @@ function Profile(
               </button>
               <button
                 className="profile__option profile__option_type_exit"
-                // onClick={onExit}
+                onClick={onExit}
               >
                 {translation.exit}
               </button>
