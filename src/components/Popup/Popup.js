@@ -65,14 +65,17 @@ function Popup({ user, closePopup, popupType, item }) {
   if (popupType === 'letter' && !values.email && !values.phone) {
     apiError = translation.noContacts;
   }
+
+  let position;
+  if (popupType === 'failure' || 'success' || 'repeat' || 'sent') {
+    position = 'centered';
+  }
   return (
     <div className="popup">
       <div
         className={`popup__container ${
           popupType === 'delete' && 'popup__container_type_delete'
-        } ${popupType === 'failure' && 'popup__container_type_centered'} ${
-          popupType === 'success' && 'popup__container_type_centered'
-        } ${popupType === 'repeat' && 'popup__container_type_centered'}`}
+        } ${position === 'centered' && 'popup__container_type_centered'} `}
         ref={containerRef}
       >
         <div className="popup__header">

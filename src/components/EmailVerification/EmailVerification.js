@@ -26,7 +26,6 @@ function EmailVerification({
         openPopupSuccess();
       })
       .catch((err) => {
-        console.log(err);
         if (err === 'Регистрация уже подтверждена') {
           openPopupRepeat();
         } else {
@@ -62,6 +61,7 @@ function EmailVerification({
     //   console.error('Email verification token not found!');
     //   history.push('/verification-error');
     // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (popupOpen) {
     return null;
